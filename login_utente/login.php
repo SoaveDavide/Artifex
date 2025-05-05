@@ -1,7 +1,45 @@
 <?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require "../vendor/autoload.php";
 require_once '../header/header.php';
 require_once '../DbConnection.php';
 
+function Sendemail($destinatario){
+    $body = "Benvenuto nel nostro sito! Grazie per esserti registrato!";
+    $mail = new PHPMailer(true);
+
+    try {
+
+        // Configurazione del server SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = '';
+        $mail->Password = '';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Mittente e destinatario
+        $mail->setFrom('davide.soave@iisviolamarchesini.edu.it');
+        $mail->addAddress($destinatario);
+
+        // Contenuto dell'email
+        $mail->Subject = 'Informazioni sul servizio';
+        $mail->Body = $body;
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+
+        // Invio dell'email
+        $mail->send();
+        echo 'Email inviata con successo!';
+    } catch (Exception $e) {
+        echo "Errore nell'invio dell'email: {$mail->ErrorInfo}";
+    }
+}
 $config = require '../DBconfig.php';
 $db = artifex\Db_connection::getDB($config);
 
@@ -29,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $stm->bindValue(':nazionalita', $nazionalita);
     $stm->bindValue(':lingua_base', $lingua);
     $stm->execute();
+    Sendemail($email);
+    $_SESSION['username'] = $nome;
 }
 ?>
 

@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,25 +25,26 @@ session_start();
                 <li class="nav-item">
                     <a class="nav-link" href="../carrello/cart.php">Carrello</a>
                 </li>
-                <?php if (!isset($_SESSION['username'])): ?>
+            </ul>
+
+            <ul class="navbar-nav ms-auto">
+                <?php if (!isset($_SESSION['username'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../login_utente/login.php">Login</a>
                     </li>
-                <?php endif; ?>
-            </ul>
-            <?php if (isset($_SESSION['username'])): ?>
-                <ul class="navbar-nav">
+                <?php } else { ?>
                     <li class="nav-item">
-              <span class="navbar-text">
-                Benvenuto, <?= htmlspecialchars($_SESSION['username']); ?>
-              </span>
+                        <a class="nav-link" href="../login_utente/login.php">
+                            <?php echo htmlspecialchars($_SESSION['username']); ?>
+                        </a>
                     </li>
-
-                </ul>
-            <?php endif; ?>
+                <?php } ?>
+            </ul>
         </div>
+
     </div>
 </nav>
+
 <div class = "container mt-5 flex-grow-1">
 
 

@@ -1,4 +1,7 @@
 <?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 require_once '../header/header.php';
 require_once '../DbConnection.php';
 
@@ -10,19 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "SELECT password FROM visitatori WHERE email = :email";
+    $query = "SELECT password, nome FROM visitatori WHERE email = :email";
     $stm = $db->prepare($query);
     $stm->bindValue(':email', $email);
     $stm->execute();
-    $user = $stm->fetch(PDO::FETCH_OBJ);
+    $user = $stm->fetch();
 
-    if ($user && password_verify($password, $user->password)) {
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['username'] = $user['nome'];
         header("Location: ../home/home.php");
         exit();
     } else {
         $errorMessage = "Email o password errati.";
     }
 }
+
 ?>
 <div class="container">
     <h1>Accedi</h1>
