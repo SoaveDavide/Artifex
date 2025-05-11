@@ -28,7 +28,7 @@ require '../header/header.php';
                 <div class="card-body">
                     <h5 class="card-title">Prenotazione Eventi</h5>
                     <p class="card-text">Prenota uno o più eventi con un solo pagamento, scegliendo liberamente tra diverse date e guide.</p>
-                    <a href="../prenotazione_eventi.php" class="btn btn-primary">Prenota ora</a>
+                    <a href="../eventi_lista/event_lista.php" class="btn btn-primary">Prenota ora</a>
                 </div>
             </div>
         </div>
