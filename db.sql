@@ -1,11 +1,11 @@
 create database artifex;
 
 create table artifex.lingue(
-                               nome varchar(100) primary key
+    nome varchar(100) primary key
 );
 
 create table artifex.lvl_conoscenza(
-                                       nome varchar(100) primary key
+    nome varchar(100) primary key
 );
 
 create table artifex.guide(
@@ -81,10 +81,16 @@ create table artifex.contenere(
                                   foreign key(nome_evento) references artifex.eventi(nome)
 );
 
+create table artifex.amministratore(
+                                       email varchar(100) primary key,
+                                       password varchar(100)
+);
 
 -- Inserimento dati
 insert into artifex.lingue(nome)
 values ('italiano'), ('tedesco'), ('inglese'), ('francese'), ('spagnolo'), ('rumeno'), ('russo');
+
+insert into artifex.amministratore(email, password) values ('davide.soave@gmail.com', '$2y$10$s86IsG7ZOwShQfg2bnki/.s/3.rSFaFINsLU/jErYaRts9T59IcX6');
 
 insert into artifex.guide (nome, cognome, titolo_studio, luogo_nascita, data_nascita) values
     ('Laura', 'Bianchi', 'Laurea in Storia dell\'Arte', 'Firenze', '1985-04-12'),

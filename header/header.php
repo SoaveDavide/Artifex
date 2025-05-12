@@ -26,15 +26,28 @@ if(session_status() == PHP_SESSION_NONE){
                     <a class="nav-link" href="../carrello/cart.php">Carrello</a>
                 </li>
             </ul>
-
+            <ul class="navbar-nav me-auto">
+                <?php if(!isset($_SESSION['username_amministratore'])){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Login_amministratore/login_amministratore.php">Login Amministratore</a>
+                </li>
+                <?php } else{?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../dashboard/">
+                            <?php echo htmlspecialchars($_SESSION['username_amministratore']); ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
             <ul class="navbar-nav ms-auto">
                 <?php if (!isset($_SESSION['username'])) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="../login_utente/login.php">Login</a>
                     </li>
                 <?php } else { ?>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="../login_utente/login.php">
+                        <a class="nav-link" href="../gestione_account/gestione.php">
                             <?php echo htmlspecialchars($_SESSION['username']); ?>
                         </a>
                     </li>

@@ -69,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $stm->execute();
     Sendemail($email);
     $_SESSION['username'] = $nome;
+    $_SESSION['email'] = $email;
 }
 ?>
 
