@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['evento_nome'])) {
 // Controlla se l'evento è già presente nel carrello dell'utente
     $query_check = "SELECT * FROM contenere WHERE email_utente = :username AND nome_evento = :nome_prodotto AND data_creazione = :data_creazione";
     $stm = $db->prepare($query_check);
-    $stm->bindValue(':username', $username);
+    $stm->bindValue(':username', $email);
     $stm->bindValue(':nome_prodotto', $nome_prodotto);
     $stm->bindValue(':data_creazione', $carrello_data);
     $stm->execute();
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['evento_nome'])) {
         $stm = $db->prepare($query_insert);
         $stm->bindValue(':nome_prodotto', $nome_prodotto);
         $stm->bindValue(':data_creazione', $carrello_data);
-        $stm->bindValue(':username', $username);
+        $stm->bindValue(':username', $email);
         $stm->execute();
 
         echo "<div class='container mt-5 alert alert-success text-center fw-bold'>Evento aggiunto al carrello!</div>";

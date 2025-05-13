@@ -8,9 +8,10 @@ require_once '../DbConnection.php';
 $config = require '../DBconfig.php';
 
 $db = artifex\Db_connection::getDB($config);
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
 // Simulazione utente loggato (se non esiste, diventa guest)
-$email = $_SESSION['username'];
+$email = $_SESSION['email'];
 $stm = $db->prepare("SELECT email FROM visitatori WHERE email = :email");
 $stm->bindValue(':email', $email);
 $stm->execute();
@@ -106,9 +107,8 @@ foreach ($eventi as $evento) {
 
 ?>
 
-<!-- HTML per visualizzare il contenuto del carrello -->
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Il tuo Carrello</h1>
+    <h1 class="text-center mb-4">🛒 Il tuo Carrello</h1>
 
     <!-- Messaggio informativo se presente -->
     <?php if (isset($message)): ?>
@@ -120,29 +120,32 @@ foreach ($eventi as $evento) {
         <div class="alert alert-warning text-center">Il tuo carrello è vuoto.</div>
     <?php else: ?>
         <!-- Elenco degli eventi -->
-        <?php foreach ($eventi as $evento): ?>
-            <div class="row mb-3 align-items-center">
-                <div class="col-md-8">
-                    <h5><?= htmlspecialchars($evento->nome) ?></h5>
-                    <p>Prezzo: €<?= number_format($evento->prezzo, 2, ',', '.') ?></p>
+        <div class="row g-4">
+            <?php foreach ($eventi as $evento): ?>
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title"><?= htmlspecialchars($evento->nome) ?></h5>
+                            <p class="card-text">💶 Prezzo: <strong>€<?= number_format($evento->prezzo, 2, ',', '.') ?></strong></p>
+                            <form method="POST" class="mt-auto text-end">
+                                <input type="hidden" name="remove" value="<?= htmlspecialchars($evento->nome) ?>" />
+                                <button type="submit" class="btn btn-outline-danger btn-sm">🗑 Rimuovi</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4 text-end">
-                    <!-- Form per rimuovere un evento dal carrello -->
-                    <form method="POST">
-                        <input type="hidden" name="remove" value="<?= htmlspecialchars($evento->nome) ?>" />
-                        <button type="submit" class="btn btn-danger btn-sm">Rimuovi</button>
-                    </form>
-                </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
 
         <!-- Totale generale del carrello -->
-        <h3 class="text-end">Totale Carrello: €<?= number_format($total, 2, ',', '.') ?></h3>
+        <div class="mt-5 text-end">
+            <h3>Totale Carrello: <span class="text-success">€<?= number_format($total, 2, ',', '.') ?></span></h3>
 
-        <!-- Pulsante per il checkout -->
-        <div class="text-end">
-            <form method="POST">
-                <button type="submit" name="checkout" class="btn btn-success mt-3">Procedi al Checkout</button>
+            <!-- Pulsante per il checkout -->
+            <form method="POST" class="mt-3">
+                <button type="submit" name="checkout" class="btn btn-success btn-lg">
+                    ✅ Procedi al Checkout
+                </button>
             </form>
         </div>
     <?php endif; ?>
