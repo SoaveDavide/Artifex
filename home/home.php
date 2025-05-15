@@ -38,7 +38,7 @@ require '../header/header.php';
                 <div class="card-body">
                     <h5 class="card-title">Carrello Prenotazioni</h5>
                     <p class="card-text">Consulta facilmente il tuo carrello con tutte le prenotazioni future selezionate prima dell'acquisto.</p>
-                    <a href="../carrello.php" class="btn btn-primary">Vai al carrello</a>
+                    <a href="../carrello/cart.php" class="btn btn-primary">Vai al carrello</a>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@ require '../header/header.php';
                 <div class="card-body">
                     <h5 class="card-title">Area Personale</h5>
                     <p class="card-text">Visualizza il tuo profilo, gestisci le prenotazioni effettuate e cambia la tua password quando vuoi.</p>
-                    <a href="../profilo.php" class="btn btn-primary">Profilo</a>
+                    <a href="../gestione_account/gestione.php" class="btn btn-primary">Profilo</a>
                 </div>
             </div>
         </div>
