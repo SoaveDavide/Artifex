@@ -33,7 +33,7 @@ if(session_status() == PHP_SESSION_NONE){
                 </li>
                 <?php } else{?>
                     <li class="nav-item">
-                        <a class="nav-link" href="../dashboard/">
+                        <a class="nav-link" href="../gestione_amministratore/gestione.php">
                             <?php echo htmlspecialchars($_SESSION['username_amministratore']); ?>
                         </a>
                     </li>

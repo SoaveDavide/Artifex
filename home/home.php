@@ -58,7 +58,11 @@ require '../header/header.php';
                 <div class="card-body">
                     <h5 class="card-title">Dashboard Admin</h5>
                     <p class="card-text">Gestisci eventi, date e guide da un'unica dashboard riservata agli amministratori del sistema.</p>
-                    <a href="../admin/dashboard.php" class="btn btn-primary">Dashboard</a>
+                    <?php if(isset($_SESSION['username_amministratore'])){?>
+                    <a href="../dashboard/scelta_modifica.php" class="btn btn-primary">Dashboard</a>
+                    <?php } else{ ?>
+                    <a href = "../Login_amministratore/login_amministratore.php" class="btn btn-primary">Non sei loggato</a>
+                    <?php }?>
                 </div>
             </div>
         </div>

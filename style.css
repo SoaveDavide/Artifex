@@ -21,6 +21,53 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
 }
+/* Bottoni generici */
+button {
+    background-color: #cf2011;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    margin: 10px 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Effetto hover per i bottoni */
+button:hover {
+    background-color: #b71d0d;
+    transform: scale(1.05);
+}
+/* Bottoni centrati in colonna */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.button-group button {
+    width: 250px;
+    margin: 10px 0;
+}
+
+/* Effetto al click */
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Bottoni responsive */
+@media (max-width: 480px) {
+    button {
+        width: 100%;
+        margin: 8px 0;
+        font-size: 1rem;
+    }
+}
 
 /* Title Styling */
 .title {
